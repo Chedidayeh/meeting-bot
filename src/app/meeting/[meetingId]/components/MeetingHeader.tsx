@@ -138,7 +138,7 @@ function MeetingHeader({
                 </div>
             ) : isOwner ? (
                 <div className='flex gap-3'>
-                    <Button
+                    {/* <Button
                         onClick={handlePostToSlack}
                         disabled={isPosting || !meetingId}
                         variant="outline"
@@ -150,9 +150,9 @@ function MeetingHeader({
                             className='w-4 h-4 mr-2'
                         />
                         {isPosting ? 'Posting...' : 'Post to Slack'}
-                    </Button>
+                    </Button> */}
 
-                    <Button
+                    {/* <Button
                         onClick={handleShare}
                         variant='outline'
                         className='flex items-center gap-2 px-4 py-2 bg-muted rounded-lg hover:bg-muted/80 transition-colors text-foreground text-sm cursor-pointer'
@@ -169,7 +169,7 @@ function MeetingHeader({
                             </>
                         )}
 
-                    </Button>
+                    </Button> */}
 
                     <Button
                         onClick={handleDelete}

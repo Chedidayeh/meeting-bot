@@ -34,17 +34,17 @@ const features = [
     {
         icon: Share2,
         title: "One-Click Integrations",
-        description: "Push action items to Slack, Asana, Jira and Trello",
+        description: "Push action items to Jira ",
         color: "text-cyan-400",
         bgColor: "bg-cyan-500/10",
     },
-    {
-        icon: Slack,
-        title: "Slack bot Integration",
-        description: "Install our Slack Bot to ask questions and share insights",
-        color: "text-pink-400",
-        bgColor: "bg-pink-500/10",
-    },
+    // {
+    //     icon: Slack,
+    //     title: "Slack bot Integration",
+    //     description: "Install our Slack Bot to ask questions and share insights",
+    //     color: "text-pink-400",
+    //     bgColor: "bg-pink-500/10",
+    // },
 ]
 
 function FeaturesSection() {
@@ -63,7 +63,7 @@ function FeaturesSection() {
                     </p>
 
                 </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
                     {features.map((feature, index) => (
                         <div
                             key={index}

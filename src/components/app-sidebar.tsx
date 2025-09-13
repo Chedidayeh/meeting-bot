@@ -90,7 +90,7 @@ export function AppSidebar() {
     return (
         <Sidebar collapsible="none" className="border-r border-sidebar-border h-screen">
             <SidebarHeader className="border-b border-sidebar-border p-4">
-                <Link href="/home">
+                <Link href="/">
 
                     <div className="flex items-center gap-2">
                         <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">

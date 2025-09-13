@@ -18,8 +18,8 @@ interface EmailData {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
+        user: process.env.GMAIL_ACCOUNT,
+        pass: process.env.GMAIL_PASS
     }
 })
 
@@ -37,7 +37,7 @@ export async function sendMeetingSummaryEmail(data: EmailData) {
         )
 
         const result = await transporter.sendMail({
-            from: `"Meeting Bot" <${process.env.GMAIL_USER}>`,
+            from: `"Meeting Bot" <${process.env.GMAIL_ACCOUNT}>`,
             to: data.userEmail,
             subject: `Meeting Summary Ready - ${data.meetingTitle}`,
             html: emailHtml

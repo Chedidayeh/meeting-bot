@@ -9,16 +9,16 @@ import { useSession } from "next-auth/react"
 import Link from "next/link"
 
 export default function HeroSection() {
-    const { data , status } = useSession()
+    const { data, status } = useSession()
     const isSignedIn = status === 'authenticated'
 
     const handleClick = async () => {
         try {
-          await GoogleLogin();
+            await GoogleLogin();
         } catch (error) {
-          console.error("An error occurred during Google Login:", error);
+            console.error("An error occurred during Google Login:", error);
         }
-      };
+    };
 
     return (
         <>
@@ -40,9 +40,9 @@ export default function HeroSection() {
                                 </Button>
                             ) : (
                                 <>
-                                        <Button onClick={handleClick} variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer">
-                                            Sign In
-                                        </Button>
+                                    <Button onClick={handleClick} variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer">
+                                        Sign In
+                                    </Button>
                                 </>
 
                             )}
@@ -97,13 +97,10 @@ export default function HeroSection() {
                                 </Link>
                             </Button>
                         ) : (
-                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4" >
-                            <Link href="/home" className="group">
+                            <Button onClick={handleClick} size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4" >
                                 <span>Dashboard</span>
                                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-
-                            </Link>
-                        </Button>
+                            </Button>
                         )}
 
                     </div>

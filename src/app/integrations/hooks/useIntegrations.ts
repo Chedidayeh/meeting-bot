@@ -13,7 +13,11 @@ import { useEffect, useState } from "react"
 
 // Describes the shape of an integration item displayed in the UI
 export interface Integration {
-    platform: 'google-calendar' | 'trello' | 'jira' | 'asana' | 'slack'
+    platform: 'google-calendar'
+    | 'trello'
+    | 'jira'
+    | 'asana'
+    | 'slack'
     name: string
     description: string
     connected: boolean
@@ -24,25 +28,18 @@ export interface Integration {
 }
 
 export function useIntegrations() {
-    const session  = useSession()
+    const session = useSession()
     const userId = session?.data?.user.id
 
     // Local list of integrations with default (disconnected) state and static metadata
     const [integrations, setIntegrations] = useState<Integration[]>([
+
         {
-            platform: 'slack',
-            name: 'Slack',
-            description: 'Post meeting summaries to your Slack channels',
+            platform: 'google-calendar',
+            name: 'Google Calendar',
+            description: 'Auto-Sync meetings',
             connected: false,
-            channelName: undefined,
-            logo: '/slack.png'
-        },
-        {
-            platform: 'trello',
-            name: 'Trello',
-            description: 'Add action items to your Trello boards',
-            connected: false,
-            logo: '/trello.png'
+            logo: '/gcal.png'
         },
         {
             platform: 'jira',
@@ -50,20 +47,30 @@ export function useIntegrations() {
             description: 'Create tickets for development tasks and more',
             connected: false,
             logo: '/jira.png'
-        }, {
-            platform: 'asana',
-            name: 'Asana',
-            description: 'Sync tasks with your team projects',
-            connected: false,
-            logo: '/asana.png'
         },
-        {
-            platform: 'google-calendar',
-            name: 'Google Calendar',
-            description: 'Auto-Sync meetings',
-            connected: false,
-            logo: '/gcal.png'
-        }
+        // {
+        //     platform: 'slack',
+        //     name: 'Slack',
+        //     description: 'Post meeting summaries to your Slack channels',
+        //     connected: false,
+        //     channelName: undefined,
+        //     logo: '/slack.png'
+        // },
+        // {
+        //     platform: 'trello',
+        //     name: 'Trello',
+        //     description: 'Add action items to your Trello boards',
+        //     connected: false,
+        //     logo: '/trello.png'
+        // },
+        // {
+        //     platform: 'asana',
+        //     name: 'Asana',
+        //     description: 'Sync tasks with your team projects',
+        //     connected: false,
+        //     logo: '/asana.png'
+        // },
+
     ])
 
     // UI/async state
