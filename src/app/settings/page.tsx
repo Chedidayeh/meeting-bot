@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Bot, LogOut, Save, Upload, User } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 function Settings() {
@@ -20,6 +21,14 @@ function Settings() {
     const [isSaving, setIsSaving] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
     const [hasChanges, setHasChanges] = useState(false)
+    const router = useRouter()
+    const SignOutUser = () => {
+        try {
+          router.push("/api/auth/logout");
+        } catch (error) {
+          console.error('Error signing out:', error);
+        }
+      };
 
     useEffect(() => {
         if (userId) {
@@ -258,15 +267,14 @@ function Settings() {
                     )}
 
                         <div className='pt-4 border-t border-border'>
-                            {/* <SignOut>
                                 <Button
                                     variant='destructive'
                                     className='inline-flex items-center gap-2 cursor-pointer'
+                                    onClick={SignOutUser}
                                 >
                                     <LogOut className='h-4 w-4' />
                                     Sign Out
                                 </Button>
-                            </SignOutButton> */}
 
                     </div>
 

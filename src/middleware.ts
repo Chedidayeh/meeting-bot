@@ -1,7 +1,7 @@
 
 import authConfig from "./auth.config";
 import NextAuth from "next-auth";
-const PROTECTED_ROUTES = ['/dashboard', '/forum']
+const PROTECTED_ROUTES = ['/home', '/settings' , '/meeting/:path*' , '/integrations' , '/chat' , '/pricing' , '/api/auth/logout']
 import { auth as a } from '@/auth'
 const { auth } = NextAuth(authConfig);
 
@@ -10,9 +10,8 @@ export default auth(async (req) => {
     const isProtected = PROTECTED_ROUTES.some((path) => nextUrl.pathname.startsWith(path))
     const session = await a()
     if (isProtected && !session) {
-        const signInUrl = new URL('/api/auth/signin', nextUrl.origin)
-        signInUrl.searchParams.set('callbackUrl', nextUrl.href)
-        return Response.redirect(signInUrl)
+        return Response.redirect(new URL("/", nextUrl))
+
     }
 })
 

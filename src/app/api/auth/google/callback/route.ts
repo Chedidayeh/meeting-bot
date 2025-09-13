@@ -29,7 +29,7 @@ export async function GET(request: Request) {
                 client_secret: process.env.GOOGLE_CLIENT_SECRET!,
                 code: code,
                 grant_type: 'authorization_code',
-                redirect_uri: 'http://localhost:3000/api/auth/google/callback'
+                redirect_uri: process.env.GOOGLE_REDIRECT_URI!
             })
         })
 

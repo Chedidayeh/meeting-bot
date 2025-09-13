@@ -1,8 +1,15 @@
 "use server"
 
-import { auth } from "@/auth"
+import { auth, signIn } from "@/auth"
 import { db } from "@/db"
 import { canUserChat, incrementChatUsage, incrementMeetingUsage } from "@/lib/usage"
+
+
+
+export const GoogleLogin = async () => {
+  await signIn("google", { redirectTo: "/" });
+}
+
 
 export async function getUserId() {
   try {

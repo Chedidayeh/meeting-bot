@@ -42,6 +42,21 @@ export async function processTranscript(
         }
     }))
 
+    // Example inputs:
+    // meetingId: "meeting_123"
+    // userId: "user_456"
+    // transcript: "John: Welcome to the product meeting.\nSarah: Let's discuss the roadmap.\nJohn: I have the Q1 priorities ready."
+    // meetingTitle: "Product Planning Session"
+    //
+    // Example outputs:
+    // 1. Database records created in transcriptChunk table:
+    //    - { meetingId: "meeting_123", chunkIndex: 0, content: "John: Welcome to the product meeting.\nSarah: Let's discuss the roadmap.", speakerName: "John", vectorId: "meeting_123_chunk_0" }
+    //    - { meetingId: "meeting_123", chunkIndex: 1, content: "John: I have the Q1 priorities ready.", speakerName: "John", vectorId: "meeting_123_chunk_1" }
+    //
+    // 2. Vectors stored in Pinecone:
+    //    - { id: "meeting_123_chunk_0", embedding: [0.123, -0.456, ...], metadata: { meetingId: "meeting_123", userId: "user_456", chunkIndex: 0, content: "John: Welcome...", speakerName: "John", meetingTitle: "Product Planning Session" } }
+    //    - { id: "meeting_123_chunk_1", embedding: [0.789, -0.321, ...], metadata: { meetingId: "meeting_123", userId: "user_456", chunkIndex: 1, content: "John: I have...", speakerName: "John", meetingTitle: "Product Planning Session" } }
+
     await saveManyVectors(vectors)
 }
 

@@ -1,5 +1,6 @@
 'use client'
 
+import { GoogleLogin } from "@/actions/user/actions"
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -10,6 +11,15 @@ import Link from "next/link"
 export default function HeroSection() {
     const { data , status } = useSession()
     const isSignedIn = status === 'authenticated'
+
+    const handleClick = async () => {
+        try {
+          await GoogleLogin();
+        } catch (error) {
+          console.error("An error occurred during Google Login:", error);
+        }
+      };
+
     return (
         <>
             <nav className="border-b border-gray-800 bg-black/80 backdrop-blur-sm sticky top-0 z-50">
@@ -30,12 +40,8 @@ export default function HeroSection() {
                                 </Button>
                             ) : (
                                 <>
-                                        <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer">
+                                        <Button onClick={handleClick} variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer">
                                             Sign In
-                                        </Button>
-
-                                        <Button className="bg-blue-600 hover:bg-blue-700 cursor-pointer">
-                                            Get Started
                                         </Button>
                                 </>
 
@@ -91,16 +97,15 @@ export default function HeroSection() {
                                 </Link>
                             </Button>
                         ) : (
-                                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4 group cursor-pointer">
-                                    <span>Start Free Trial</span>
-                                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                                </Button>
+                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 px-8 py-4" >
+                            <Link href="/home" className="group">
+                                <span>Dashboard</span>
+                                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+
+                            </Link>
+                        </Button>
                         )}
 
-                        <Button variant="outline" size="lg" className="border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white px-8 py-4 cursor-pointer">
-                            <Play className="w-5 h-5 mr-2" />
-                            <span>Watch Demo</span>
-                        </Button>
                     </div>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
                         <div className="flex items-center space-x-2">
