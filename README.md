@@ -4,7 +4,7 @@
 <img width="1902" height="868" alt="image" src="https://github.com/user-attachments/assets/d1c53936-7948-4169-9d0d-2fde0cf736ea" />
 
 
-MeetingBot is a comprehensive open-source **meeting intelligence platform** that automatically joins your video calls on **Zoom**, **Google Meet**, and **Microsoft Teams** to provide AI-powered **transcriptions, summaries, and actionable insights**. This project demonstrates how to build a SaaS platform with advanced AI integrations using **OpenAI** and **Pinecone** for conversational meeting intelligence.
+MeetingBot is a comprehensive open-source **meeting intelligence platform** that automatically joins your video calls on **Zoom**, **Google Meet**, and **Microsoft Teams** to provide AI-powered **transcriptions, summaries, and actionable insights**. This project demonstrates how to build a SaaS platform with advanced AI integrations using **Gemini** and **Pinecone** for conversational meeting intelligence.
 
 ---
 
@@ -18,7 +18,7 @@ Additional features include:
 - Custom bot personalization  
 - Automated action item detection  
 
-We leverage **Next.js 15**, **TypeScript**, **Tailwind CSS 4**, **Shadcn UI**, **NextAuth**, **Prisma ORM**, **Supabase Storage**, **Inngest**, **OpenAI API**, **Pinecone**, **Slack Bolt framework**, and more to provide a complete alternative to commercial solutions like Fireflies.ai and Otter.ai.
+We leverage **Next.js 15**, **TypeScript**, **Tailwind CSS 4**, **Shadcn UI**, **NextAuth**, **Prisma ORM**, **Supabase Storage**, **Inngest**, **Gemini API**, **Pinecone**, **Slack Bolt framework**, and more to provide a complete alternative to commercial solutions like Fireflies.ai and Otter.ai.
 
 ---
 
@@ -26,10 +26,11 @@ We leverage **Next.js 15**, **TypeScript**, **Tailwind CSS 4**, **Shadcn UI**, *
 
 - 🤖 Automatic AI bot deployment to Zoom, Google Meet, and Microsoft Teams  
 - 📝 Meeting transcription with speaker identification and diarization  
-- 🧠 AI-generated meeting summaries and action items using OpenAI  
+- 🧠 AI-generated meeting summaries and action items using **Gemini**  
 - 📅 Real-time calendar sync with **Google Calendar**  
 - 💬 Chat with meeting conversational AI via RAG pipeline powered by Pinecone vector database  
 - 🔍 Semantic search across all meeting transcripts and summaries  
+- 🗄️ Meeting embeddings maintained using **Gemini `text-embedding-004`**  
 - 🔗 One-click action item sync to **Jira**  
 - 💬 Native Slack bot integration with `@meetingbot` commands using Slack Bolt framework  
 - 🔒 Secure user authentication and session management with **NextAuth**  
@@ -56,7 +57,7 @@ We leverage **Next.js 15**, **TypeScript**, **Tailwind CSS 4**, **Shadcn UI**, *
 - **Frontend & UI**: Next.js 15, TypeScript, Tailwind CSS 4, Shadcn UI, React H5 Audio Player, Sonner, Next Themes  
 - **Authentication & Security**: NextAuth, Svix webhook validation  
 - **Backend & Database**: Prisma ORM, PostgreSQL, Inngest, Supabase Storage  
-- **AI & Data**: OpenAI API, Pinecone Vector Database  
+- **AI & Data**: Gemini API (`text-embedding-004` for embeddings), Pinecone Vector Database  
 - **Integrations**: Google Calendar, Jira, Slack Bolt Framework, Resend  
 - **State Management & Querying**: React Context hooks, @tanstack/react-query  
 
@@ -69,12 +70,5 @@ We leverage **Next.js 15**, **TypeScript**, **Tailwind CSS 4**, **Shadcn UI**, *
 - Node.js >= 20  
 - PostgreSQL  
 - Supabase account (for storage)  
-- OpenAI API key  
+- Gemini API key  
 - Pinecone API key  
-
-### Installation
-
-```bash
-git clone https://github.com/your-username/meetingbot.git
-cd meetingbot
-npm install
