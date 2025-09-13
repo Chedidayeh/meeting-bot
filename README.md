@@ -32,7 +32,6 @@ We leverage **Next.js 15**, **TypeScript**, **Tailwind CSS 4**, **Shadcn UI**, *
 - 🔍 Semantic search across all meeting transcripts and summaries  
 - 🗄️ Meeting embeddings maintained using **Gemini `text-embedding-004`**  
 - 🔗 One-click action item sync to **Jira**  
-- 💬 Native Slack bot integration with `@meetingbot` commands using Slack Bolt framework  
 - 🔒 Secure user authentication and session management with **NextAuth**  
 - 🎨 Modern responsive UI built with Next.js 15, Tailwind CSS 4, and Shadcn UI  
 - 📊 Comprehensive meeting dashboard with audio playback using React H5 Audio Player  
