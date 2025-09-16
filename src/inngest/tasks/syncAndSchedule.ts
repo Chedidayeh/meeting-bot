@@ -1,7 +1,6 @@
 import { inngest } from "@/lib/inngest";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@prisma/client";
-import { addHours } from "date-fns";
 
 type MinimalUser = {
   id: string;
@@ -231,8 +230,8 @@ async function processEvent(user: MinimalUser, event: GoogleEvent): Promise<void
           title: eventData.title,
           description: eventData.description,
           meetingUrl: eventData.meetingUrl,
-          startTime: addHours(new Date(eventData.startTime), 1),
-          endTime: addHours(new Date(eventData.endTime), 1),
+          startTime: eventData.startTime,
+          endTime: eventData.endTime,
           attendees: eventData.attendees as unknown as Prisma.InputJsonValue,
           isFromCalendar: true,
           botScheduled: true,
