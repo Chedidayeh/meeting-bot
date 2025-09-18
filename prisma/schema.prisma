@@ -30,7 +30,7 @@ model User {
   preferredChannelId   String?
   preferredChannelName String?
 
-  currentPlan          String    @default("free")
+  currentPlan          String    @default("starter")
   subscriptionStatus   String    @default("inactive")
   stripeCustomerId     String?
   stripeSubscriptionId String?

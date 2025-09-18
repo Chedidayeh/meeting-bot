@@ -31,7 +31,8 @@ function UpcomingMeetings({
     return (
         <div>
             <div className='flex justify-between items-center mb-6'>
-                <h2 className='text-xl font-bold text-foreground'>Upcoming</h2>
+                <h2 className='text-xl flex flex-col gap-1 font-bold text-foreground'>Upcoming 
+                </h2>
                 <span className='text-sm text-muted-foreground'>({upcomingEvents.length})</span>
             </div>
 

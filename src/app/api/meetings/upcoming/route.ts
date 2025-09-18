@@ -29,6 +29,8 @@ export async function GET() {
             take: 10
         })
 
+        console.log(upcomingMeetings)
+
         const events = upcomingMeetings.map(meeting => ({
             id: meeting.calendarEventId || meeting.id,
             summary: meeting.title,

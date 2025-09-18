@@ -247,11 +247,12 @@ async function processEvent(user: MinimalUser, event: GoogleEvent): Promise<void
 
 async function scheduleBotsForUpcomingMeetings() {
   const now = new Date();
+  console.log(now)
   const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60 * 1000);
 
   const upcomingMeetings = await prisma.meeting.findMany({
     where: {
-      startTime: { gte: now, lte: fiveMinutesFromNow },
+      startTime: { gte: now},
       botScheduled: true,
       botSent: false,
       meetingUrl: { not: null },
