@@ -1,4 +1,4 @@
-# MeetingBot 🐶
+# MeetingBot
 
 
 <img width="1902" height="868" alt="image" src="https://github.com/user-attachments/assets/d1c53936-7948-4169-9d0d-2fde0cf736ea" />
