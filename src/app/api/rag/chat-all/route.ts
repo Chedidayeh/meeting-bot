@@ -1,6 +1,6 @@
 import { getUserId } from "@/actions/user/actions";
 import { db } from "@/db";
-import { chatWithAllMeetings } from "@/lib/rag";
+import { chatWithAllMeetingsFixed } from "@/lib/rag-fixed";
 ;
 import { NextRequest, NextResponse } from "next/server";
 
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
             targetUserId = user.id
         }
 
-        const response = await chatWithAllMeetings(targetUserId, question)
+        const response = await chatWithAllMeetingsFixed(targetUserId, question)
 
         return NextResponse.json(response)
     } catch (error) {

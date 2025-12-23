@@ -48,5 +48,5 @@ export function chunkTranscript(transcript: string) {
 
 export function extractSpeaker(text: string) {
     const match = text.match(/^([A-Za-z\s]+):\s*/)
-    return match ? match[1].trim() : null
+    return match ? match[1].trim() : 'Unknown Speaker'
 }

@@ -10,12 +10,12 @@ export async function GET(request: Request) {
 
         if (error) {
             console.error('oauth error', error)
-            return NextResponse.redirect(new URL('/home?error=oauth_denied', request.url))
+            return NextResponse.redirect(new URL('/dashboard/main?error=oauth_denied', request.url))
         }
 
         if (!code || !state) {
             console.error('missing code or state ')
-            return NextResponse.redirect(new URL('/home?error=oauth_failed', request.url))
+            return NextResponse.redirect(new URL('/dashboard/main?error=oauth_failed', request.url))
         }
 
         const { userId } = JSON.parse(Buffer.from(state, 'base64').toString())
@@ -37,7 +37,7 @@ export async function GET(request: Request) {
 
         if (!tokens.access_token) {
             console.error('no access tokenr eveived', tokens)
-            return NextResponse.redirect(new URL('/home?error=no_access_token', request.url))
+            return NextResponse.redirect(new URL('/dashboard/main?error=no_access_token', request.url))
         }
 
         const user = await db.user.findUnique({
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
 
         if (!user) {
             console.error('user not found', userId)
-            return NextResponse.redirect(new URL('/home?error=user_not_found', request.url))
+            return NextResponse.redirect(new URL('/dashboard/main?error=user_not_found', request.url))
         }
 
         await db.user.update({
@@ -64,9 +64,9 @@ export async function GET(request: Request) {
         })
 
 
-        return NextResponse.redirect(new URL('/home?connected=direct', request.url))
+        return NextResponse.redirect(new URL('/dashboard/main?connected=direct', request.url))
     } catch (error) {
         console.error('callback error: ', error)
-        return NextResponse.redirect(new URL('/home?error=callback_failed', request.url))
+        return NextResponse.redirect(new URL('/dashboard/main?error=callback_failed', request.url))
     }
 }

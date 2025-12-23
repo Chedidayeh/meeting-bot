@@ -3,7 +3,7 @@ import { useUsage } from "@/contexts/UsageContext"
 import { useState } from "react"
 
 export interface ChatMessage {
-    id: number
+    id: string
     content: string
     isBot: boolean
     timestamp: Date
@@ -38,7 +38,7 @@ export function useChatCore({
         setIsLoading(true)
 
         const newMessage: ChatMessage = {
-            id: messages.length + 1,
+            id: `temp-${Date.now()}`,
             content: chatInput,
             isBot: false,
             timestamp: new Date()
@@ -65,7 +65,7 @@ export function useChatCore({
                 await incrementChatUsage()
 
                 const botMessage: ChatMessage = {
-                    id: messages.length + 2,
+                    id: `temp-${Date.now()}-bot`,
                     content: data.answer || data.response,
                     isBot: true,
                     timestamp: new Date()
@@ -74,7 +74,7 @@ export function useChatCore({
             } else {
                 if (data.upgradeRequired) {
                     const upgradeMessage: ChatMessage = {
-                        id: messages.length + 2,
+                        id: `temp-${Date.now()}-upgrade`,
                         content: `${data.error} Visit the Pricing page to upgrade your plan and continue chatting!`,
                         isBot: true,
                         timestamp: new Date()
@@ -82,7 +82,7 @@ export function useChatCore({
                     setMessages(prev => [...prev, upgradeMessage])
                 } else {
                     const errorMessage: ChatMessage = {
-                        id: messages.length + 2,
+                        id: `temp-${Date.now()}-error`,
                         content: data.error || 'Sorry, I encountered an error. Please try again.',
                         isBot: true,
                         timestamp: new Date()
@@ -94,7 +94,7 @@ export function useChatCore({
         } catch (error) {
             console.error('chat error:', error)
             const errorMessage: ChatMessage = {
-                id: messages.length + 2,
+                id: `temp-${Date.now()}-error`,
                 content: 'Sorry, I could not connect to the server. please check your connection and try again.',
                 isBot: true,
                 timestamp: new Date()

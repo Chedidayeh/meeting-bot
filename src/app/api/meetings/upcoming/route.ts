@@ -19,24 +19,25 @@ export async function GET() {
         }
 
         const now = new Date()
+        const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000) // Subtract 1 hour
         const upcomingMeetings = await db.meeting.findMany({
             where: {
                 userId: user.id,
-                startTime: { gte: now },
+                meetingEnded: false,
+                startTime: { gte: oneHourAgo },
                 isFromCalendar: true
             },
             orderBy: { startTime: 'asc' },
             take: 10
         })
 
-        console.log(upcomingMeetings)
 
         const events = upcomingMeetings.map(meeting => ({
             id: meeting.calendarEventId || meeting.id,
             summary: meeting.title,
             start: { dateTime: meeting.startTime.toISOString() },
             end: { dateTime: meeting.endTime.toISOString() },
-            attendees: meeting.attendees ? JSON.parse(meeting.attendees as string) : [],
+            attendees: meeting.attendees || [],
             hangoutLink: meeting.meetingUrl,
             conferenceData: meeting.meetingUrl ? { entryPoints: [{ uri: meeting.meetingUrl }] } : null,
             botScheduled: meeting.botScheduled,

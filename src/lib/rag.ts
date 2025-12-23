@@ -1,4 +1,4 @@
-import { prisma } from "./db";
+import { db } from "@/db";
 import { chatWithAI, createEmbedding, createManyEmbeddings } from "./geminiai";
 import { saveManyVectors, searchVectors } from "./pinecone";
 import { chunkTranscript, extractSpeaker } from "./text-chunker";
@@ -23,7 +23,7 @@ export async function processTranscript(
         vectorId: `${meetingId}_chunk_${chunk.chunkIndex}`
     }))
 
-    await prisma.transcriptChunk.createMany({
+    await db.transcriptChunk.createMany({
         data: dbChunks,
         skipDuplicates: true
     })
@@ -73,7 +73,7 @@ export async function chatWithMeeting(
         5
     )
 
-    const meeting = await prisma.meeting.findUnique({
+    const meeting = await db.meeting.findUnique({
         where: {
             id: meetingId
         }

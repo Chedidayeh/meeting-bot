@@ -7,28 +7,28 @@ import { Button } from "@/components/ui/button";
 
 const items = [
     {
-        title: "Home",
-        url: "/home",
+        title: "Main Dashboard",
+        url: "/dashboard/main",
         icon: Home,
     },
     {
         title: "Integrations",
-        url: "/integrations",
+        url: "/dashboard/integrations",
         icon: Layers3,
     },
     {
         title: "Settings",
-        url: "/settings",
+        url: "/dashboard/settings",
         icon: Settings,
     },
     {
         title: "Chat with AI",
-        url: "/chat",
+        url: "/dashboard/chat",
         icon: Bot,
     },
     {
         title: "Pricing",
-        url: "/pricing",
+        url: "/dashboard/pricing",
         icon: DollarSign,
     },
 ]

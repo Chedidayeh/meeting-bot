@@ -31,7 +31,7 @@ model User {
   preferredChannelName String?
 
   currentPlan          String    @default("starter")
-  subscriptionStatus   String    @default("inactive")
+  subscriptionStatus   String    @default("active")
   stripeCustomerId     String?
   stripeSubscriptionId String?
   billingPeriodStart   DateTime?
@@ -44,6 +44,8 @@ model User {
   Account Account[]
 
   Session Session[]
+  ChatSession ChatSession[]
+  GlobalChatMessage GlobalChatMessage[]
 }
 
 model Account {
@@ -77,26 +79,7 @@ model Session {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@id([identifier, token])
-}
 
-model SlackInstallation {
-  id            String   @id @default(cuid())
-  teamId        String   @unique
-  teamName      String
-  botToken      String   @db.Text
-  installedBy   String
-  installerName String?
-  active        Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
 
 model Meeting {
   id          String   @id @default(cuid())
@@ -125,17 +108,23 @@ model Meeting {
   summary        String?
   actionItems    Json?
   processed      Boolean   @default(false)
+  processingFailed Boolean @default(false)
   processedAt    DateTime?
+  processingStartedAt DateTime?
   emailSent      Boolean   @default(false)
   emailSentAt    DateTime?
+  emailError     String?
+  emailLastAttempt DateTime?
   ragProcessed   Boolean   @default(false)
   ragProcessedAt DateTime?
+  webhookId      String?   @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   TranscriptChunk TranscriptChunk[]
+  ChatMessage     ChatMessage[]
 }
 
 model UserIntegration {
@@ -168,4 +157,44 @@ model TranscriptChunk {
   vectorId    String?
   createdAt   DateTime @default(now())
   meeting     Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  meetingId String
+  content   String   @db.Text
+  isBot     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  
+  @@index([meetingId])
+}
+
+model GlobalChatMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  userId    String
+  content   String   @db.Text
+  isBot     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([sessionId])
+  @@index([userId])
+}
+
+model ChatSession {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String   @default("New Chat")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  GlobalChatMessage[]
+  
+  @@index([userId])
 }
