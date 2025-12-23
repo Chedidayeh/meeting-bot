@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/db";
 import { chatWithAI, createEmbedding } from "./geminiai";
 import { searchVectors } from "./pinecone";
@@ -21,7 +22,7 @@ export async function chatWithAllMeetingsFixed(
 
     // Group results by meeting
     const meetingGroups = new Map<string, typeof results>()
-    results.forEach(result => {
+    results.forEach((result: any) => {
         const meetingId = result.metadata?.meetingId
         // Ensure meetingId is a string (Pinecone metadata can have mixed types)
         if (meetingId && typeof meetingId === 'string') {
@@ -34,9 +35,9 @@ export async function chatWithAllMeetingsFixed(
 
     // Build context with one representative chunk per meeting
     const context = Array.from(meetingGroups.entries())
-        .map(([meetingId, chunks]) => {
+        .map(([meetingId, chunks]: [string, any[]]) => {
             // Use the chunk with highest confidence
-            const bestChunk = chunks.sort((a, b) => 
+            const bestChunk = chunks.sort((a: any, b: any) => 
                 (b.score || 0) - (a.score || 0)
             )[0]
             
@@ -69,7 +70,7 @@ IMPORTANT: You found information from ${uniqueMeetingCount} different meeting(s)
     return {
         answer,
         meetingCount: uniqueMeetingCount,  // NEW: Return actual count
-        sources: results.map(result => ({
+        sources: results.map((result: any) => ({
             meetingId: result.metadata?.meetingId,
             meetingTitle: result.metadata?.meetingTitle,
             content: result.metadata?.content,
