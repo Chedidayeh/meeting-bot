@@ -1,11 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Pinecone } from '@pinecone-database/pinecone'
 
-const pinecone = new Pinecone({
-    apiKey: process.env.PINECONE_API_KEY!,
-})
+let pinecone: Pinecone | null = null
+let index: any = null
 
-const index = pinecone.index(process.env.PINECONE_INDEX_NAME!)
+function getPineconeClient() {
+    if (!pinecone) {
+        pinecone = new Pinecone({
+            apiKey: process.env.PINECONE_API_KEY!,
+        })
+    }
+    return pinecone
+}
+
+function getPineconeIndex() {
+    if (!index) {
+        const client = getPineconeClient()
+        index = client.index(process.env.PINECONE_INDEX_NAME!)
+    }
+    return index
+}
 
 export async function saveManyVectors(vectors: Array<{
     id: string
@@ -18,7 +32,7 @@ export async function saveManyVectors(vectors: Array<{
         metadata: v.metadata
     }))
 
-    await index.upsert(upsertData)
+    await getPineconeIndex().upsert(upsertData)
 }
 
 export async function searchVectors(
@@ -26,7 +40,7 @@ export async function searchVectors(
     filter: any = {},
     topK: number = 5
 ) {
-    const result = await index.query({
+    const result = await getPineconeIndex().query({
         vector: embedding,
         filter,
         topK,
